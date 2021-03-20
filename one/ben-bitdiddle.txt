@@ -1,0 +1,23 @@
+(define (p) (p))
+(define (test x y)
+  (if (= x 0) 0 y))
+
+> (test 0 (p))
+
+applicative-order (eval arguments then apply; what the interpreter actually does to save time computing same stuff)
+
+(test 0 (p))
+
+> evaluates subexpressions of test
+> evaluates test -> function
+> evaluates 0 -> 0
+> evaluates (p) -> (p) calls itself infinitely
+
+normal-order (expand and reduce)
+
+(test 0 (p))
+> evaluates test without evaluating operands
+
+(test 0 (p))
+(if (= 0 0) 0 (p))
+0
