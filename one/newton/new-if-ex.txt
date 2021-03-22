@@ -1,0 +1,79 @@
+Exercise 1.6.  Alyssa P. Hacker doesn't see why if needs to be provided as a special form. ``Why can't I just define it as an ordinary procedure in terms of cond?'' she asks. Alyssa's friend Eva Lu Ator claims this can indeed be done, and she defines a new version of if:
+
+(define (new-if predicate then-clause else-clause)
+  (cond (predicate then-clause)
+        (else else-clause)))
+
+Eva demonstrates the program for Alyssa:
+
+(new-if (= 2 3) 0 5)
+5
+
+(new-if (= 1 1) 0 5)
+0
+
+Delighted, Alyssa uses new-if to rewrite the square-root program:
+
+(define (sqrt-iter guess x)
+  (new-if (good-enough? guess x)
+          guess
+          (sqrt-iter (improve guess x)
+                     x)))
+
+What happens when Alyssa attempts to use this to compute square roots? Explain.
+
+====================
+
+according to the rules of execution, we have
+
+to evaluate a combination:
+
+1.  Evaluate the subexpressions of the combination.
+
+2.  Apply the procedure that is the value of the leftmost subexpression (the operator) to the arguments that are the values of the other subexpressions (the operands).
+
+so here, we would do
+
+(sqrt-iter 1 2)
+
+(new-if (good-enough? guess x) guess (sqrt-iter (improve guess x) x))
+(new-if (good-enough? 1 2) 1 (sqrt-iter (improve 1 2) 2))
+new-if:
+(cond ((good-enough? 1 2) 1)
+      (else (sqrt-iter (improve 1 2) 2)))
+
+evaluate cond
+evaluate (good-enough? 1 2) -> F
+evaluate 1
+evaluate else
+evaluate (sqrt-iter (improve 1 2) 2)  -> (sqrt-iter 1.5 2)
+
+(new-if (good-enough? guess x) guess (sqrt-iter (improve guess x) x))
+(new-if (good-enough? 1.5 2) 1.5 (sqrt-iter (improve 1.5 2) 2))
+new-if:
+(cond ((good-enough? 1.5 2) 1.5)
+      (else (sqrt-iter (improve 1.5 2) 2)))
+
+evaluate cond
+evaluate (good-enough? 1.5 2) -> F
+evaluate 1.5
+evaluate else
+evaluate (sqrt-iter (improve 1.5 2) 2)  -> (sqrt-iter 1.416667 2)
+
+Eventually we get to
+(new-if (good-enough? guess x) guess (sqrt-iter (improve guess x) x))
+such that the predicate is true, which looks like:
+(cond ((good-enough? guess x) guess)
+      (else (sqrt-iter (improve guess x) x)))
+
+but because the interpreter follows the rule of
+1. evaluating subexpressions of a combination and then
+2. applying the procedure that is the value of the leftmost subexpression to the arguments that are the values of the other subexpressions
+it will continue trying to evaluate (sqrt-iter (improve guess x) x) ad infinitum even when predicates in new-if are true
+
+So the special form ``if`` must provide a way to not evaluate then-clause and else-clause until it is determined which should be evaluated based on
+the predicate value
+
+and indeed, running this in scheme gives us:
+
+;Aborting!: maximum recursion depth exceeded
