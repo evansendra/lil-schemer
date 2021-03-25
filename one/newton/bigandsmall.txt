@@ -1,0 +1,15 @@
+The good-enough? test used in computing square roots will not be very effective for finding the square roots of very small numbers. Also, in real computers, arithmetic operations are almost always performed with limited precision. This makes our test inadequate for very large numbers. Explain these statements, with examples showing how the test fails for small and large numbers. An alternative strategy for implementing good-enough? is to watch how guess changes from one iteration to the next and to stop when the change is a very small fraction of the guess. Design a square-root procedure that uses this kind of end test. Does this work better for small and large numbers?
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+**The good-enough? test used in computing square roots will not be very effective for finding the square roots of very small numbers.**
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+for this procedure such that x < 0.001 will produce bad results, because any guess whose square is within 10x - for example - 0.0001 will suffice to give us a difference of 0.001.  That moves to 100x, 1000x, and so on for 0.00001, 0.000001...
+
+Also, in real computers, arithmetic operations are almost always performed with limited precision. This makes our test inadequate for very large numbers.
+
+For very large numbers, we have the opposite problem.  0.001 is too fine a scale to be measuring the difference of numbers which are beyond the precision we have to compute.  Eventually, numbers will be converted to a 1.2345e6 format, where we will only have so many digits to hold behind the decimal.  Since the precision is limited, our test which uses 0.001 (10e-4) as the difference between square of guess and x will fail once square guess or x is so large such that 0.001 is cut off from the resulting number.  For example, if the maximum precision is 64 digits, then an x with more than 61 digits will produce an inaccurate result, since we require the accuracy to be within .001 of the number, but we will only be able to get within 0.01 or less depending on the number of digits in the number.
