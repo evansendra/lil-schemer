@@ -1,5 +1,8 @@
 (load "new-if.scm")
 
+; "lexically" scopes sqrt so that the param x is used within sub-procedures as
+; free variable and bound variables are scoped to sqrt
+
 ; compares one guess and the next until the two guesses are within 0.001 of each other meaning we've reached sufficient approximation of sqrt(x)
 (define (sqrt x)
   (define (square guess)
