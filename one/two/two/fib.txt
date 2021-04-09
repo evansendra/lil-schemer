@@ -1,0 +1,61 @@
+; @param n number the number for which to compute the fibonacci sequence
+; n >= 0
+(define (fib n)
+  (cond ((= n 0) 0)
+        ((= n 1) 1)
+        (else (+ (fib (- n 1))
+                 (fib (- n 2))))))
+
+; at most we keep track of 2 + 1 items at a time (space)
+(fib 3)
+(+ (fib 2) (fib 1))
+(+ (+ (fib 1) (fib 0)) (fib 1))
+(+ (+ 1 (fib 0)) (fib 1))
+(+ (+ 1 0) (fib 1))
+(+ (+ 1 0) 1)
+(+ 1 1)
+2
+
+; at most we keep track of 2 + 2 items to be computed at a time
+(fib 4)
+(+ (fib 3) (fib 2))
+(+ (+ (fib 2) (fib 1)) (fib 2))
+(+ (+ (+ (fib 1) (fib 0)) (fib 1)) (fib 2))
+(+ (+ (+ 1 (fib 0)) (fib 1)) (fib 2))
+(+ (+ (+ 1 0) (fib 1)) (fib 2))
+(+ (+ 1 (fib 1)) (fib 2))
+(+ (+ 1 1) (fib 2))
+(+ 2 (fib 2))
+(+ 2 (+ (fib 1) (fib 0)))
+(+ 2 (+ 1 (fib 0)))
+(+ 2 (+ 1 0))
+(+ 2 1)
+3
+
+(fib 5)
+(+ (fib 4) (fib 3))
+(+ (+ (fib 3) (fib 2)) (fib 3))
+(+ (+ (+ (fib 2) (fib 1)) (fib 2)) (fib 3))
+(+ (+ (+ (+ (fib 1) (fib 0)) (fib 1)) (fib 2)) (fib 3)) ; this will be the max we need to keep track of and it is 2 + 3
+(+ (+ (+ (+ 1 (fib 0)) (fib 1)) (fib 2)) (fib 3))
+(+ (+ (+ (+ 1 0) (fib 1)) (fib 2)) (fib 3))
+(+ (+ (+ 1 (fib 1)) (fib 2)) (fib 3))
+(+ (+ (+ 1 1) (fib 2)) (fib 3))
+(+ (+ 2 (fib 2)) (fib 3))
+(+ (+ 2 (+ (fib 1) (fib 0))) (fib 3))
+(+ (+ 2 (+ 1 (fib 0))) (fib 3))
+(+ (+ 2 (+ 1 0)) (fib 3))
+(+ (+ 2 1) (fib 3))
+(+ 3 (fib 3))
+(+ 3 (+ (fib 2) (fib 1)))
+(+ 3 (+ (+ (fib 1) (fib 0)) (fib 1)))
+(+ 3 (+ (+ 1 (fib 0)) (fib 1)))
+(+ 3 (+ (+ 1 0) (fib 1)))
+(+ 3 (+ 1 (fib 1)))
+(+ 3 (+ 1 1))
+(+ 3 2)
+5
+
+observation:
+
+time (# operations) grows downward; space (what's being kept track of) grows to the side
