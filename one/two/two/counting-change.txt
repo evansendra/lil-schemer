@@ -1,0 +1,67 @@
+# ways to count change for amount a using n kinds of coins =
+rules:
+1 the number of ways to change amount a using all but the first kind of coin, plus
+2 the number of ways to change amount a - d using all n kinds of coins, where d is the denomination of the first kind of coin.
+
+3 If a is exactly 0, we should count that as 1 way to make change.
+4 If a is less than 0, we should count that as 0 ways to make change.
+5 If n is 0, we should count that as 0 ways to make change.
+
+Example: count ways to change 0.1 using [0.05, 0.01]
+
+= A: # ways to change 0.1 using [0.01] PLUS
+  B: # ways to change 0.1 - 0.05 = 0.05 using [0.05, 0.01]
+
+= 1 + 2 below
+
+A:
+
+# ways to change 0.1 using []
+  # ways to change 0.1 - 0.01 = 0.09 using [0.01]
+
+
+# ways to change 0.09 using []
+  # ways to change 0.09 - 0.01 = 0.08 using [0.01]
+
+.
+.
+.
+
+# ways to change 0.01 using []
+  # ways to change 0.01 - 0.01 = 0 using [0.01]
+
+# ways to change 0 using []
+  # ways to change 0 using [0.01]
+
+> 0 + 1
+
+B:
+
+# ways to change 0.05 using [0.01] PLUS
+  # ways to change 0.05 - 0.05 = 0 using [0.05, 0.01]
+
+
+# ways to change 0.05 using [] PLUS
+  # ways to change 0.05 using [0.01] 0.01
+
+# ways to change 0.05 using []
+> 0
+
+# ways to change 0.05 using [] PLUS -> 0
+  # ways to change 0.05 - 0.01 = 0.04 using [0.01]
+
+# ways to change 0.04 using [] PLUS -> 0
+  # ways to change 0.04 - 0.01 = 0.03 using [0.01]
+
+# ways to change 0.03 using [] PLUS -> 0
+  # ways to change 0.03 - 0.01 = 0.02 using [0.01]
+
+# ways to change 0.02 using [] PLUS -> 0
+  # ways to change 0.02 - 0.01 = 0.01 using [0.01]
+
+# ways to change 0.01 using [] PLUS -> 0
+  # ways to change 0.01 - 0.01 = 0 using [0.01]
+> 1
+
+# ways to change 0 using [0.05, 0.01]
+> 1
