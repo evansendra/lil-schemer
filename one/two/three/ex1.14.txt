@@ -1,0 +1,7 @@
+tree diagram of input 11; https://photos.app.goo.gl/F4NNEzBGAQBAukRb7
+
+really good mathematical analysis of ex1.14 to work through in more detail (https://www.ysagade.nl/2015/04/12/sicp-change-growth/).
+
+Space is theta(n) since we will only ever call one branch of the tree to its maximum depth before returning a value and recursing the value back and proceeding down another branch of the tree.
+
+Time is theta(n) for reasons shown in the analysis above.  Essentially, the left branch is called theta(n^(k-1)) times, which is called theta(n) times (actual number of calls depends on denominations of coins).  Thus, we arrive at theta(n^k) time complexity.
