@@ -12,10 +12,24 @@
 ;
 ; (define (even? n)
 ;   (= (remainder n 2) 0))
-
-(define (expt a b n)
+(define (expt b n)
   (exptsi 1 b n))
 
+; original solution - don't modify b
 ; a * b^n remains unchanged from state to state
+; theta(n) steps; theta(1) space
 (define (exptsi a b n)
-  )
+  (cond ((< n 2) a)
+        ((even? n) (exptsi (* a b b) b (/ n 2)))
+        (else (exptsi (* a b) b (- n 1)))))
+
+; alt solution - modify a and b
+; a * b^n remains unchanged from state to state
+; theta(n) steps; theta(1) space
+(define (exptsi2 a b n)
+  (cond ((= n 0) a)
+        ((even? n) (exptsi2 a (square b) (/ n 2)))
+        (else (exptsi2 (* a b) b (- n 1)))))
+
+(define (even? n)
+  (= (remainder n 2) 0))
