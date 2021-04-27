@@ -1,0 +1,1 @@
+A more comprehensive and concise proof: https://www.ysagade.nl/2015/04/05/sicp-fib-proof/
