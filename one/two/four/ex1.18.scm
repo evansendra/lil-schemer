@@ -1,4 +1,9 @@
 ; Using the results of exercises 1.16 and 1.17, devise a procedure that generates an iterative process for multiplying two integers in terms of adding, doubling, and halving and uses a logarithmic number of steps
+; in the procedure below, the invariant quantity is c + ab
+; which is the result so far + the remaining product to be computed
+; b = 0: c + ab = c + ab
+; b is even: c + ab = c + 2a * b/2 = c + ab
+; b is odd: c + ab = c + a + a * (b - 1) = c + a + ab - a = c + ab
 (define (* a b)
 
   ; store in c the resulting product so far
