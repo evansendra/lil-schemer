@@ -1,13 +1,14 @@
 (load "prime.scm")
+; (load "ex1.23.scm")
 
 ; The following timed-prime-test procedure, when called with an integer n, prints n and checks to see if n is prime. If n is prime, the procedure prints three asterisks followed by the amount of time used in performing the test.
 (define (timed-prime-test n)
   (newline)
   (display n)
-  (start-prime-test n (runtime)))
+  (start-prime-test n (process-time-clock)))
 (define (start-prime-test n start-time)
   (if (prime? n)
-      (report-prime (- (runtime) start-time))))
+      (report-prime (- (process-time-clock) start-time))))
 (define (report-prime elapsed-time)
   (display " *** ")
   (display elapsed-time))
