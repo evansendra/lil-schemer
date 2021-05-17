@@ -38,3 +38,5 @@
 ; 10000000019 *** 60, 10000000033 *** 50, 10000000061 *** 50 
 ; first 3 primes in 100b: 100 000 000 000 - 100 000 000 070 
 ; 100000000003 *** 160, 100000000019 *** 140, 100000000057 *** 140 
+
+; the ratio of the procedure which increments and that which uses next is a little less than two.  I think this can be accounted for due to (a) the inputs not being very large - the time to execute is small and therefore likely dependent on variables out of our control, (b) the fact that there is likely two parts of the program - "overhead" which is code needed to interpret and run our code regardless which takes some milliseconds and then the actual code we've written which has changed.  (c) randomness in the processes running in the background while the programs are executing and
