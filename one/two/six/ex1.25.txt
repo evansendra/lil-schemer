@@ -1,0 +1,28 @@
+Exercise 1.25.  Alyssa P. Hacker complains that we went to a lot of extra work in writing expmod. After all, she says, since we already know how to compute exponentials, we could have simply written
+
+(define (expmod base exp m)
+  (remainder (fast-expt base exp) m))
+
+Is she correct? Would this procedure serve as well for our fast prime tester? Explain.
+
+Recall the definition of fast-expt
+
+(define (fast-expt b n)
+  (cond ((= n 0) 1)
+        ((even? n) (square (fast-expt b (/ n 2))))
+        (else (* b (fast-expt b (- n 1))))))
+
+as opposed to the implementation we've written for expmod
+
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp) 
+            (remainder (square (expmod base (/ exp 2) m))
+                        m))
+        (else 
+            (remainder (* base (expmod base (- exp 1) m))
+                        m))))
+
+If we used the original fast-expt implementation, we would end up having to take the reaminder of a huge number mod m.  This is due to the fact that we would be raising a random number a chosen for the fermat test to the power n (which is up to 100b in our tests).  This could cause overflow errors or be practically much slower to compute based on the way remainder is implemented.
+
+Contrast this with the actual implementation of expmod which takes the random number a chosen for the fermat test, squares it or multiplies it by the base reducing the exponential appropriately, but *taking the remainder mod m at each step, thereby reducing the numbers within range of m at each step and reducing the time it takes to square and multiply the numbers.  As long as we can rely on the fact that reaminder is a reasonably fast operation with similar runtimes to * and square, we know that the program will run quicker with expmod than it would with the fast-expt implementation.
