@@ -1,0 +1,79 @@
+Louis Reasoner is having great difficulty doing exercise 1.24. His fast-prime? test seems to run more slowly than his prime? test. Louis calls his friend Eva Lu Ator over to help. When they examine Louis's code, they find that he has rewritten the expmod procedure to use an explicit multiplication, rather than calling square:
+
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder (* (expmod base (/ exp 2) m)
+                       (expmod base (/ exp 2) m))
+                    m))
+        (else
+         (remainder (* base (expmod base (- exp 1) m))
+                    m))))
+
+
+``I don't see what difference that could make,'' says Louis. ``I do.'' says Eva. ``By writing the procedure like that, you have transformed the (log n) process into a (n) process.'' Explain.
+
+Recalling that the interpreter evaluates the operator then the operands and then applies the operator to the operands, now instead of squaring the numeric result that comes from the recursive process of expmod, a tree of calls is created at each level where ``exp'' is even.  So in each step of recursion where we would normally reduce by half and iterate, we are reducing by half but creating another process, DOUBLING the amount of work to be done from that node onward, effetively cancelling the work we do to eliminate half of the work at each step.
+
+Take as an example exp = 8.  This will yield:
+
+(expmod base 8 m)
+
+(remainder (* (expmod base 4 m)
+              (expmod base 4 m))
+            m))
+[plus 2 steps]
+
+each of those (expmod base 4 m) calls becomes
+
+(remainder (* (expmod base 2 m)
+              (expmod base 2 m))
+            m))
+[plus 2 * 2 steps = 4 steps]
+
+each of which will yield
+
+(remainder (* (expmod base 1 m)
+              (expmod base 1 m))
+            m))
+[plus 2 * 2 * 2 steps = 8 steps]
+
+each of which finally reduces to 
+(remainder (* base 1)
+            m)
+doubling the calculation one last time
+[plus 2 * 2 * 2 * 2 steps = 16 steps]
+
+first term needed to create all nodes of the tree, second for executing the branches
+2^log2(exp) + 2^log2(exp)
+= 2^log2(8) + 2^log2(8)
+= 8 + 8
+= 16
+
+as opposed to the previous procedure where for exp = 8, it would yield:
+
+(expmod base 8 m)
+
+(remainder (square (expmod base 4 m))
+            m))
+[plus 1 step]
+
+in which the expmod call becomes
+
+(remainder (square (expmod base 2 m))
+            m))
+[plus 1 step]
+
+in which the expmod call becomes
+
+(remainder (square (expmod base 1 m))
+            m))
+[plus 1 step]
+
+in which the expmod call becomes
+
+(remainder (* base 1)
+            m)
+[plus 1 step]
+
+Steps = 4: 8 / 2 / 2 / 2 - 1 aka log2(8) + 1 = 3 + 1 = 4
