@@ -1,0 +1,5 @@
+# 1.2
+
+This section covers a LOT of interesting material.  Starting in 1.2.1 where the differenece between recursive and iterative processes (whether or not the procedures are written in recursive style) is discussed in depth.  Tree recursion is then discussed as well as orders of growth in terms of number of steps / operations amount of space.  Mathematical induction is used as a style of proof to prove that Fibonacci really runs on theta(ɸ^n).
+
+Exponential computation is then discussed starting from expansive multiplication to iterative expansive multiplication to successive squaring.  Successive squaring is a technique that is used again to "halve" problems we see throughout the chapter.  We conclude with prime testing starting from testing if n can be divided by any numbrer from 1 to sqrt(n) and eventually developing probabilistic algorithms based on Fermat's last theorem and Miller-Rabin.
