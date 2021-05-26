@@ -15,17 +15,18 @@
 
   ; calculate if we have a nontrivial sqrt 1 mod n (not equal to 1 or n - 1)
   (define (non-trivial-sqrt? x)
-    ; calculate the remainder of the square of a mod b
-    ; doing this so hopefully the result is stored and not done twice in (cond ...) below
-    (define (remainder-square a b)
-      (remainder (square a) b))
-    (cond ((and (= (remainder-square x m) 1) (not (= x 1)) (not (= x (- m 1)))) 0)
-          (else (remainder-square x m))))
+
+    ; calculate if we discovered a nontrivial (not 1 or n-1) squareroot of 1 mod n
+    (define (non-trivial-sqrt-remainder-square? a b)
+      (if (and (= b 1) (not (= a 1)) (not (= a (- m 1))))
+          0
+          b))
+    (non-trivial-sqrt-remainder-square? x (remainder (square x) m)))
 
   (cond ((= exp 0) 1)
-        ((even? exp) 
+        ((even? exp)
             (non-trivial-sqrt? (expmod base (/ exp 2) m)))
-        (else 
+        (else
             (remainder (* base (expmod base (- exp 1) m))
                         m))))
 
@@ -35,10 +36,6 @@
 ; 1 ]=> (fast-prime-mr? 3 10)
 
 ; ;Value: #t
-
-; 1 ]=> (fast-prime-mr? 4 10)
-
-; ;Value: #f
 
 ; 1 ]=> (fast-prime-mr? 4 10)
 
