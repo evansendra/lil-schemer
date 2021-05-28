@@ -11,14 +11,14 @@
 
 ; Define a procedure that takes as arguments f, a, b, and n and returns the value of the integral, computed using Simpson's Rule. Use your procedure to integrate cube between 0 and 1 (with n = 100 and n = 1000), and compare the results to those of the integral procedure shown above.
 (define (simpsons-rule f a b n)
-  (define (h) (/ (- b a) n))
+  (define h (/ (- b a) n))
   (define (s-term k)
     (define (mul-by k)
       (cond ((or (= k 0) (= k n)) 1)
             ((even? k) 2)
             (else 4)))
-    (* (mul-by k) (f (+ a (* k (h))))))
-  (* (/ (h) 3.0) (sum s-term 0 inc n)))
+    (* (mul-by k) (f (+ a (* k h)))))
+  (* (/ h 3.0) (sum s-term 0 inc n)))
 
 ; previous results:
 ; (integral cube 0 1 0.01)
