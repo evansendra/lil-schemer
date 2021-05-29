@@ -5,9 +5,18 @@
     (* (f a) (product f (+ a 1) b))))
 
 ; Show how to define factorial in terms of product. 
+(define (identity a) a)
 (define (! n)
-  (define (identity a) a)
   (product identity 1 n))
+
+; If we wanted to be even more abstract we could do
+; (define (product term a next b)
+;   (if (> a b)
+;     1
+;     (* (term a) (product term (next a) next b))))
+; (define (++ i) (+ i 1))
+; (define (! n)
+;   (product identity 1 ++ b))
 
 ; Also use product to compute approximations to π using the formula
 ; π   2 * 4 * 4 * 6 * 6 * 8 * ...
