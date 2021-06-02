@@ -36,3 +36,12 @@
 ; average of x and y
 (define (average x y)
   (/ (+ x y) 2.0))
+
+; testing
+; with lambda
+; (half-interval-method (lambda (x) (- (* x x x) (* 2 x) 3))
+                      ; 1.0
+                      ; 2.0)
+
+; (half-interval-method sin 2.0 4.0)
+; 3.14111328125
