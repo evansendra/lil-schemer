@@ -1,0 +1,57 @@
+\documentclass{article}
+
+% set font encoding for PDFLaTeX, XeLaTeX, or LuaTeX
+\usepackage{ifxetex,ifluatex}
+\if\ifxetex T\else\ifluatex T\else F\fi\fi T%
+  \usepackage{fontspec}
+\else
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+\fi
+
+\usepackage{hyperref}
+
+\title{SICP Exercises}
+\author{Evan Sendra}
+
+% Enable SageTeX to run SageMath code right inside this LaTeX file.
+% http://doc.sagemath.org/html/en/tutorial/sagetex.html
+% \usepackage{sagetex}
+
+% Enable PythonTeX to run Python – https://ctan.org/pkg/pythontex
+% \usepackage{pythontex}
+
+\begin{document}
+\maketitle
+\newpage
+
+
+\section{}
+\subsection{}
+\subsection{}
+\subsection{}
+  \subsubsection{}
+  \subsubsection{}
+  \subsubsection{Procedures as General Methods}
+  Exercise 1.35 - Show that the golden ratio $\phi$ (section 1.2.2) is a fixed point of the transformation:
+  
+  \[x \rightarrow 1 + \frac{1}{x}\]
+  
+  and use this fact to compute  by means of the fixed-point procedure.
+
+	\newcommand{\pe}{\frac{1 + \sqrt{5}}{2}}
+
+	\[\phi = \pe\]
+  \[x \rightarrow 1 + \frac{1}{\pe}\]
+  \[x \rightarrow 1 + \frac{2}{1+\sqrt{5}}\]
+  \[x \rightarrow 1 + \frac{2}{1+\sqrt{5}}\]
+  \[x \rightarrow \frac{1+\sqrt{5}}{1+\sqrt{5}} + \frac{2}{1+\sqrt{5}}\]
+  \[x \rightarrow \frac{3+\sqrt{5}}{1+\sqrt{5}}\]
+  \[x \rightarrow \frac{3+\sqrt{5}}{1+\sqrt{5}} \cdot \frac{1-\sqrt{5}}{1-\sqrt{5}}\]
+  \[x \rightarrow \frac{-2-2\sqrt{5}}{-4}\]
+  \[x \rightarrow \frac{-2(1+\sqrt{5})}{-2(2)}\]
+  \[x \rightarrow \pe = \phi\]
+
+\end{document}
+
