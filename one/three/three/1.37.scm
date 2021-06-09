@@ -30,4 +30,23 @@
       0
       (/ (n k) (+ (d k) (cont-frac n d (- k 1))))))
 
+; testing
+
+; 1/phi = (/ 1 (/ (+ 1 (sqrt 5)) 2)) = .6180339887498948
+
+; 1/(1+(1/(1+(1/1)))) = 0.6666666667
+; 1 ]=> (cont-frac (lambda (i) 1.0)
+; (lambda (i) 1.0)
+; 3)
+;Value: .6666666666666666
+
+; How large must you make k in order to get an approximation that is accurate to 4 decimal places?
+; 1 ]=> (cont-frac (lambda (i) 1.0)
+;                  (lambda (i) 1.0)
+;                  11)
+; k = 11
+
+;Value: .6180555555555556
+
+
 ; b. If your cont-frac procedure generates a recursive process, write one that generates an iterative process. If it generates an iterative process, write one that generates a recursive process.
