@@ -36,8 +36,8 @@
 
 ; 1/(1+(1/(1+(1/1)))) = 0.6666666667
 ; 1 ]=> (cont-frac (lambda (i) 1.0)
-; (lambda (i) 1.0)
-; 3)
+;                  (lambda (i) 1.0)
+;                  3)
 ;Value: .6666666666666666
 
 ; How large must you make k in order to get an approximation that is accurate to 4 decimal places?
@@ -48,5 +48,36 @@
 
 ;Value: .6180555555555556
 
-
 ; b. If your cont-frac procedure generates a recursive process, write one that generates an iterative process. If it generates an iterative process, write one that generates a recursive process.
+; initial value of res should be 0
+; works by starting from the bottom up
+; example of k=3
+;        N3      
+; r3 <- --------, k = 3, res = 0
+;        D3 + res
+;        N2      
+; r2 <- --------, k = 2, res = r3
+;        D2 + res
+;        N1      
+; r1 <- --------, k = 1, res = r2
+;        D1 + res
+;    
+; r1 is returned, k = 0, res = r1 
+;   
+(define (cont-frac-iter n d k res)
+  (if (= k 0)
+      res
+      (cont-frac-iter n d (- k 1) (/ (n k) (+ (d k) res)))))
+
+; testing
+; 1 ]=> (cont-frac-iter (lambda (i) 1.0) (lambda (i) 1.0) 3 0)
+
+;Value: .6666666666666666
+
+; 1 ]=> (cont-frac-iter (lambda (i) 1.0) (lambda (i) 1.0) 11 0)
+
+;Value: .6180555555555556
+
+; 1 ]=> (cont-frac-iter (lambda (i) 1.0) (lambda (i) 1.0) 20 0)
+
+;Value: .6180339850173578
