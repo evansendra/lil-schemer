@@ -1,3 +1,5 @@
+(load "../average.scm")
+
 ; checks inputs to determine if a and b are such that either
 ; f(a) < 0 < f(b)
 ; or
@@ -32,10 +34,6 @@
 ; in which case they are considered "close enough"
 (define (close-enough? x y)
   (< (abs (- x y)) 0.001))
-
-; average of x and y
-(define (average x y)
-  (/ (+ x y) 2.0))
 
 ; testing
 ; with lambda
