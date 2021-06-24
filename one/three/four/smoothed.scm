@@ -6,4 +6,4 @@
 
 (load "repeated.scm")
 (define (n-smoothed f n)
-	(repeated (smooth f) n))
+	((repeated smooth n) f))
