@@ -2,10 +2,11 @@
 
 ; Write a procedure iterative-improve that takes two procedures as arguments: a method for telling whether a guess is good enough and a method for improving a guess. Iterative-improve should return as its value a procedure that takes a guess as argument and keeps improving the guess until it is good enough. Rewrite the sqrt procedure of section 1.1.7 and the fixed-point procedure of section 1.3.3 in terms of iterative-improve.
 (define (iterative-improve good-enough? improve)
-	(lambda (guess)
+	(define (iter guess)
 		(if (good-enough? guess)
 			guess
-			((iterative-improve good-enough? improve) (improve guess)))))
+			(iter (improve guess))))
+	iter)
 
 ; quick test example
 (define close-enough 0.1)
