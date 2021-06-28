@@ -6,7 +6,7 @@ We define a way to find fixed points of functions passing procedures as argument
 
 Also, "first-class" status is defined, which applies to procedures in the case of lisp:
 
-	* They may be named by variables.
-	* They may be passed as arguments to procedures.
-	* They may be returned as the results of procedures.
-	* They may be included in data structures.
+* They may be named by variables.
+* They may be passed as arguments to procedures.
+* They may be returned as the results of procedures.
+* They may be included in data structures.
