@@ -32,16 +32,29 @@
 
 ; re-defining make-rat to be in reduced form
 (load "../../../one/two/five/gcd.scm")
-(define (make-rat-aux n d)
-	(let ((g (gcd n d)))
-		(cons (/ n g) (/ d g))))
 
-; ex 2.1
+; Exercise 2.1.  Define a better version of make-rat that handles both positive and negative arguments. Make-rat should normalize the sign so that if the rational number is positive, both the numerator and denominator are positive, and if the rational number is negative, only the numerator is negative.
 ; re-define to handle for negatives
-; TODO
-; (define (make-rat n d)
-; 	(cond ((< n 0) 
-; 					(if (< d 0)
-; 							(make-rat-aux (* n -1) (* d -1))
-; 							(make-rat-aux n d))
-; 				 (< d 0))))
+(define (make-rat n d)
+  ; constructs a pair defined by a numerator a, denominator b, and common divisor x
+  (define (div-by a b x)
+    (cons (/ a x) (/ b x)))
+  (let ((g (gcd (abs n) (abs d))))
+    (cond ((and (< n 0) (< d 0)) ; both are negative; the rational is a positive
+            (div-by (abs n) (abs d) g))
+          ((or (< n 0) (< d 0))  ; one is negative; the rational is a negative
+            (div-by (* -1 (abs n)) (abs d) g))
+          (else (div-by n d g)))))
+
+; testing
+; 1 ]=> (print-rat (make-rat 1 2))
+; 1/2
+
+; 1 ]=> (print-rat (make-rat -1 2))
+; -1/2
+
+; 1 ]=> (print-rat (make-rat 1 -2))
+; -1/2
+
+; 1 ]=> (print-rat (make-rat -1 -2))
+; 1/2
