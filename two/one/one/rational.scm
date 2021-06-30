@@ -21,7 +21,7 @@
      (* (numer y) (denom x))))
 
 ; data abstraction
-(define (make-rat n d) (cons n d))
+; (define (make-rat n d) (cons n d))
 (define (numer x) (car x))
 (define (denom x) (cdr x))
 (define (print-rat x)
@@ -29,3 +29,19 @@
 	(display (numer x))
 	(display "/")
 	(display (denom x)))
+
+; re-defining make-rat to be in reduced form
+(load "../../../one/two/five/gcd.scm")
+(define (make-rat-aux n d)
+	(let ((g (gcd n d)))
+		(cons (/ n g) (/ d g))))
+
+; ex 2.1
+; re-define to handle for negatives
+; TODO
+; (define (make-rat n d)
+; 	(cond ((< n 0) 
+; 					(if (< d 0)
+; 							(make-rat-aux (* n -1) (* d -1))
+; 							(make-rat-aux n d))
+; 				 (< d 0))))
