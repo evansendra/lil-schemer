@@ -27,11 +27,11 @@
 	(cdr p))
 
 (define (midpoint-segment s)
-	(define (avg a b) (/ (+ a b) 2))
-	(let ((p1 (car s))
-				(p2 (cdr s)))
-		(make-point (avg (car p1) (car p2))
-								(avg (cdr p1) (cdr p2)))))
+	(define (avg a b) (/ (+ a b) 2.0))
+	(let ((p1 (start-segment s))
+				(p2 (end-segment s)))
+		(make-point (avg (x-point p1) (x-point p2))
+								(avg (y-point p1) (y-point p2)))))
 
 ; testing
 (define (test actual expected comparator)
