@@ -30,7 +30,6 @@
 	(display "/")
 	(display (denom x)))
 
-; re-defining make-rat to be in reduced form
 (load "../../../one/two/five/gcd.scm")
 
 ; Exercise 2.1.  Define a better version of make-rat that handles both positive and negative arguments. Make-rat should normalize the sign so that if the rational number is positive, both the numerator and denominator are positive, and if the rational number is negative, only the numerator is negative.
@@ -40,21 +39,31 @@
   (define (div-by a b x)
     (cons (/ a x) (/ b x)))
   (let ((g (gcd (abs n) (abs d))))
-    (cond ((and (< n 0) (< d 0)) ; both are negative; the rational is a positive
+    (cond ((and (< n 0) (< d 0))   ; both are negative; the rational is a positive
             (div-by (abs n) (abs d) g))
-          ((or (< n 0) (< d 0))  ; one is negative; the rational is a negative
+          ((or (< n 0) (< d 0))    ; one is negative; the rational is a negative
             (div-by (* -1 (abs n)) (abs d) g))
-          (else (div-by n d g)))))
+          (else (div-by n d g))))) ; both are positive; the rational is positive
+
+; alternate solution from http://community.schemewiki.org/?sicp-ex-2.1
+; this makes use of the fact that the sign of the divisor will influence the resutlting
+; sign of the overall rational
+; n d g n/g d/g rat
+; + + +  +   +   +
+; - + +  -   +   -
+; + - -  -   +   -
+; - - -  +   +   +
+(define (make-rat-alt n d)
+  (let ((g ((if (< d 0) - +) (abs (gcd n d)))))
+    (display g)
+    (cons (/ n g) (/ d g))))
 
 ; testing
 ; 1 ]=> (print-rat (make-rat 1 2))
 ; 1/2
-
 ; 1 ]=> (print-rat (make-rat -1 2))
 ; -1/2
-
 ; 1 ]=> (print-rat (make-rat 1 -2))
 ; -1/2
-
 ; 1 ]=> (print-rat (make-rat -1 -2))
 ; 1/2
