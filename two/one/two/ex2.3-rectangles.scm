@@ -18,18 +18,47 @@
 
 ; second definition
 ; assumes given two points which are the corners of the rectangles
-(define (make-rectangle c1 c2)
-	(make-segment c1 c2))
+; (define (make-rectangle c1 c2)
+; 	(make-segment c1 c2))
+
+; (define (rect-length r)
+; 	(let ((p1 (start-segment r))
+; 				(p2 (end-segment r)))
+; 		(abs (- (x-point p2) (x-point p1)))))
+
+; (define (rect-width r)
+; 	(let ((p1 (start-segment r))
+; 				(p2 (end-segment r)))
+; 		(abs (- (y-point p2) (y-point p1)))))
+
+; third definition
+; support (cockeyed) rectangles - not parallel to axes
+(define (make-rectangle top-left bottom-left bottom-right top-right)
+	(cons (cons top-left bottom-left) (cons top-right bottom-right)))
+
+(define (bottom-left r)
+	(cdr (car r)))
+(define (bottom-right r)
+	(cdr (cdr r)))
+(define (top-left r)
+	(car (car r)))
+(define (top-right r)
+	(car (cdr r)))
+(define (square x) (* x x))
 
 (define (rect-length r)
-	(let ((p1 (start-segment r))
-				(p2 (end-segment r)))
-		(abs (- (x-point p2) (x-point p1)))))
+	(let ((y-diff (- (y-point (bottom-left r)) (y-point (bottom-right r))))
+				(x-diff (- (x-point (bottom-left r)) (x-point (bottom-right r)))))
+		(if (= y-diff 0) 
+			(abs x-diff)
+			(sqrt (+ (square (abs x-diff)) (square (abs y-diff)))))))
 
 (define (rect-width r)
-	(let ((p1 (start-segment r))
-				(p2 (end-segment r)))
-		(abs (- (y-point p2) (y-point p1)))))
+	(let ((y-diff (- (y-point (bottom-left r)) (y-point (top-left r))))
+				(x-diff (- (x-point (bottom-left r)) (x-point (top-left r)))))
+		(if (= x-diff 0)
+				(abs y-diff)
+				(sqrt (+ (square (abs x-diff)) (square (abs y-diff)))))))
 
 (define (area r)
 	(* (rect-width r) (rect-length r)))
