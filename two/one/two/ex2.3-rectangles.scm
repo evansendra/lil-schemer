@@ -85,3 +85,29 @@
 
 ; 1 ]=> (area (make-rectangle (make-point 3 3) (make-point 0 0)))
 ;Value: 9
+
+; testing V3
+; 1 ]=> (area (make-rectangle (make-point 0 3) (make-point 0 0) (make-point 3 0) (make-point 3 3)))
+;Value: 9
+
+; 1 ]=> (perimeter (make-rectangle (make-point 0 3) (make-point 0 0) (make-point 3 0) (make-point 3 3)))
+;Value: 12
+
+; 1 ]=> (perimeter (make-rectangle (make-point -2 2) (make-point 0 0) (make-point 3 2) (make-point 1 4)))
+;Value: 12.867956800420359
+
+; 1 ]=> (area (make-rectangle (make-point -2 2) (make-point 0 0) (make-point 3 2) (make-point 1 4)))
+;Value: 10.19803902718557
+
+; 1 ]=> (area (make-rectangle (make-point 0 0) (make-point -2 -2) (make-point 1 -4) (make-point 3 -2)))
+;Value: 10.19803902718557
+
+; 1 ]=> (perimeter (make-rectangle (make-point 0 0) (make-point -2 -2) (make-point 1 -4) (make-point 3 -2)))
+;Value: 12.867956800420359
+
+; just show the values are what we expect
+; 1 ]=> (* (sqrt 13) (sqrt 8))
+;Value: 10.19803902718557
+
+; 1 ]=> (* 2 (+ (sqrt 13) (sqrt 8)))
+;Value: 12.867956800420359
