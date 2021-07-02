@@ -46,19 +46,16 @@
 	(car (cdr r)))
 (define (square x) (* x x))
 
+(define (point-dist p1 p2) 
+	(let ((x-diff (abs (- (x-point p1) (x-point p2))))
+				(y-diff (abs (- (y-point p1) (y-point p2)))))
+		(sqrt (+ (square x-diff) (square y-diff)))))
+
 (define (rect-length r)
-	(let ((y-diff (- (y-point (bottom-left r)) (y-point (bottom-right r))))
-				(x-diff (- (x-point (bottom-left r)) (x-point (bottom-right r)))))
-		(if (= y-diff 0) 
-			(abs x-diff)
-			(sqrt (+ (square (abs x-diff)) (square (abs y-diff)))))))
+	(point-dist (bottom-left r) (bottom-right r)))
 
 (define (rect-width r)
-	(let ((y-diff (- (y-point (bottom-left r)) (y-point (top-left r))))
-				(x-diff (- (x-point (bottom-left r)) (x-point (top-left r)))))
-		(if (= x-diff 0)
-				(abs y-diff)
-				(sqrt (+ (square (abs x-diff)) (square (abs y-diff)))))))
+	(point-dist (top-left r) (bottom-left r)))
 
 (define (area r)
 	(* (rect-width r) (rect-length r)))
