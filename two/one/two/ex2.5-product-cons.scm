@@ -6,7 +6,7 @@
 	(/ (log arg) (log base)))
 
 ; divide a by b until you can't divide a by b (without a remainder) no mo
-; if a is divisible evenly by b, returns a/b else returns 0
+; if a is divisible evenly by b, returns a/b else returns a
 ; (divnomo 18 3)
 ; (divnomo 6 3)
 ; (divnomo 2 3)
@@ -43,3 +43,37 @@
 ; b = log3(p)
 ; if p = 2^a * 3^b
 ; a = log2(p / (3^log3(p)))
+
+; ALTERNATIVE
+; doesn't use log base b
+
+; counts how many times x can be divided by divisor with zero remainder
+(define (count-zero-divs x divisor)
+	(define (iter x divisor count)
+		(if (= (remainder x divisor) 0)
+				(iter (/ x divisor) divisor (+ count 1))
+				count))
+	(iter x divisor 0))
+
+(define (cons a b)
+	(* (expt 2 a) (expt 3 b)))
+
+(define (car p) (count-zero-divs p 2))
+(define (cdr p) (count-zero-divs p 3))
+
+; basically what this does better than my original solution is recognize that
+; we don't need to reduce the result by the other base of the exponent, we can
+; go after the term we want directly by simply counting the number of divisions
+; of its base
+
+; EASIER READ USING RECURSIVE PROCESS
+(define (cons a b)
+	(* (expt 2 a) (expt 3 b)))
+
+(define (zero-divs a b)
+	(if (= (remainder a b) 0)
+			(+ 1 (zero-divs (/ a b) b))
+			0))
+
+(define (car p) (zero-divs p 2))
+(define (cdr p) (zero-divs p 3))
