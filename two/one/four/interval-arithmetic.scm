@@ -23,3 +23,16 @@
 (define (upper-bound i) (cdr i))
 (define (lower-bound i) (car i))
 
+; Exercise 2.8.  Using reasoning analogous to Alyssa's, describe how the difference of two intervals may be computed. Define a corresponding subtraction procedure, called sub-interval.
+; Subtracting two intervals is an interval whose lower bound is the difference of the two lower bounds and upper bound is the difference of the two upper bounds
+(define (sub-interval x y)
+	(make-interval (- (lower-bound x) (lower-bound y))
+								 (- (upper-bound x) (upper-bound y))))
+
+; alternative version making use of add-interval
+; (define (sub-interval-alt x y)
+; 	(add-interval x
+; 								(make-interval (- (lower-bound y)) (- (upper-bound y)))))
+
+i2  1 2
+i3 -1 0
