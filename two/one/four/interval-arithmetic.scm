@@ -30,9 +30,6 @@
 								 (- (upper-bound x) (upper-bound y))))
 
 ; alternative version making use of add-interval
-; (define (sub-interval-alt x y)
-; 	(add-interval x
-; 								(make-interval (- (lower-bound y)) (- (upper-bound y)))))
-
-i2  1 2
-i3 -1 0
+(define (sub-interval-alt x y)
+	(add-interval x
+								(make-interval (- (lower-bound y)) (- (upper-bound y)))))
