@@ -1,0 +1,41 @@
+Exercise 2.9.  The width of an interval is half of the difference between its upper and lower bounds. The width is a measure of the uncertainty of the number specified by the interval. For some arithmetic operations the width of the result of combining two intervals is a function only of the widths of the argument intervals, whereas for others the width of the combination is not a function of the widths of the argument intervals. Show that the width of the sum (or difference) of two intervals is a function only of the widths of the intervals being added (or subtracted). Give examples to show that this is not true for multiplication or division.
+
+What would it mean for an arithmetic operation on internvals to be a "function of" the width of the argument intervals?
+f(Wa, Wb) = y -> the function f specifying some arithmetic operation should map to some y which is the same for given interval width arguments Wa, Wb
+
+To show that the width of the sum and difference of two intervals is a function only of the widths of the intervals being added or subtracted, we can prove for addition that this is true and because subtraction can be defined as in `sub-interval-alt` above in terms of addition, this will prove also subtraction.
+
+Addition explicitly uses terms of the line segment (upper and lower) that are the same as those used to construct the widths.
+Wa = (Ua - La) / 2, Wb = (Ub - Lb) / 2
+f(a,b) where f is addition 
+f(a,b) = (La+Lb,Ua+Ub)
+Wa+b where ab is the given result above
+Wa+b = ((Ua+Ub) - (La+Lb)) / 2
+Rearranging terms, we can put this in terms of Wa, Wb
+Wa+b = (Ua-La) / 2 + (Ub - Lb) / 2 = Wa + Wb
+
+We defined `sub-interval-alt` in terms of addition, so we can plug those numbers in and see how this is still a function of widths
+
+So it holds that for addition and subtraction, Wa+b = Wa + Wb and Wa-b = Wa - Wb
+
+To show that for multiplication and division, this is not the case, we simply must show that there exist
+
+f(Wa, Wb) = y and f(Wa', Wb') = z where f is multiplication and Wa = Wa' and Wb = Wb', but a and a' are different (as well as b and b')
+
+I 
+a = (0,1); b = (1,5)
+Wa = 0.5, Wb = 2
+a*b = (min(0, 0, 1, 5), max(0, 0, 1, 5))
+a*b = (0, 5)
+Wa*b = 2.5
+
+II
+a = (2, 3); b = (10, 14)
+Wa = 0.5, Wb = 2
+a*b = (min(20, 28, 30, 42), max(20, 28, 30, 42))
+a*b = (20, 42)
+Wa*b = 11
+
+I: f(0.5,2) = 2.5
+II: f(20,42) = 11
+Thus the width of multiplied line segments cannot be a function of input widths.  The same holds for division as its input is the multiplication of line segments.
