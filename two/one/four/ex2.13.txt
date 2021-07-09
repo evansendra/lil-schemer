@@ -1,5 +1,35 @@
 Exercise 2.13.  Show that under the assumption of small percentage tolerances there is a simple formula for the approximate percentage tolerance of the product of two intervals in terms of the tolerances of the factors. You may simplify the problem by assuming that all numbers are positive.
 
+x = (xc*(1-xp), xc*(1+xp)) 
+y = (yc*(1-yp), yc*(1+yp))
+
+x*y = (xc*yc*(1-xp)*(1-yp), xc*yc*(1+xp)*(1+yp))
+      (xc*yc*(1-xp-yp-xp*yp), xc*yc*(1+xp+yp+xp*yp))
+
+      [at this step, we assume since xp*yp are small, xp*yp is small enough to discard]
+
+      (xc*yc*(1-xp-yp), xc*yc*(1+xp+yp))
+
+So the percentage tolerance of the product x*y could be re-written as
+
+xp+yp
+
+example:
+
+x = 10 +/- 0.05
+y = 15 +/- 0.01
+
+xyp ≈ 0.05+0.01 ≈ 0.06
+
+testing:
+
+(define a (make-center-percent 10 0.05))
+(define b (make-center-percent 15 0.01))
+
+(percent (mul-interval a b))
+
+.05999999700002138
+
 ---
 
 originally I solved the wrong problem and gave the percentage tolerance in terms of the lower and upper bounds of x and y:
