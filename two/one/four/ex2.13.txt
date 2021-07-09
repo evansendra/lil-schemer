@@ -1,0 +1,66 @@
+Exercise 2.13.  Show that under the assumption of small percentage tolerances there is a simple formula for the approximate percentage tolerance of the product of two intervals in terms of the tolerances of the factors. You may simplify the problem by assuming that all numbers are positive.
+
+---
+
+originally I solved the wrong problem and gave the percentage tolerance in terms of the lower and upper bounds of x and y:
+
+So my initial thought is that we can use our ex2.10 in which we detailed all the cases of multiplication of intervals...
+
+1 xl >= 0 and yl >= 0: (xl*yl, xu*yu) --- all positive
+2 xu <= 0 and yu <= 0: (xu*yu, xl*yl) --- all negative
+3 xl >= 0 and yu <= 0: (xu*yl, yu*xl) --- y negative x positive
+4 yl >= 0 and xu <= 0: (yu*xl, xu*yl) --- x negative y positive
+5 yl <= 0 and yu >= 0 and xl >= 0: (yl*xu, yu*xu) --- y negative and positive x positive
+6 yl <= 0 and yu >= 0 and xu <= 0: (xl*yu, xl*yl) --- y negative and positive x negative
+7 xl <= 0 and xu >= 0 and yl >= 0: (xl*yu, xu*yu) --- x negative and positive y positive
+8 xl <= 0 and xu >= 0 and yu <= 0: (yl*xu, yl*xl) --- x negative and positive y negative 
+9 xl <= 0 and xu >= 0 and yl <= 0 and yu >= 0 --- y and x both negative and positive
+
+combined with the percentage formula created in the last exercise
+
+(define (percent i)
+  (if (= (center i) 0)
+    0
+    (* 100 (abs (/ (- (upper-bound i) (center i)) (center i))))))
+
+in order to figure out the formula.  We can eliminate cases 2-9 above since we're assuming all numbers are positive.
+
+Thus, we have the product of the interval represented by
+
+(xl,xu) * (yl,yu) = (xl*yl, xu*yu)
+
+now we need to account for the percentage of each
+
+ip = 100 * abs( (iu-ic) / ic )
+
+where i can be x or y
+
+in the case of the product of x*y where all x and y are positive, it follows in a straightforward manner that
+
+xyp = 100 * ( (xyu - xyc ) / xyc )
+xyp = 100 * ( (xyu / xyc) - 1 )
+
+xyp = 100 * ( xyu / xyc - 1)
+xyp = 100 * ( xu*yu / ((xl*yl)+((xu*yu-xl*yl)/2)) - 1)
+xyp = 100 * ( xu*yu / ((xl*yl+xu*yu)/2)  - 1)
+xyp = 100 * ( 2*xu*yu / (xl*yl+xu*yu) - 1)
+
+example
+
+x = (1, 2), xc = 1.5
+y = (2, 3), yc = 2.5
+a*b = (2, 6)
+
+xp = 100 * ((2-1.5) / 1.5)
+xp = 33.33(3)%
+
+yp = 100 * ((3-2.5) / 2.5)
+yp = 20%
+
+xyp [actual] = 100 * ((6-4)/4) = 50%
+xyp [formula] = 100 * ( 2*xu*yu / (xl*yl+xu*yu) )
+xyp [formula] = 100 * ( 2*xu*yu / (xl*yl+xu*yu) - 1)
+              = 100 * ( 2*2*3 / (1*2+2*3) - 1)
+              = 100 * ( 12 / 8 - 8 / 8)
+              = 100 * 4/8
+              = 50%
