@@ -52,3 +52,10 @@
 ; We can see that while the center values are relatively similar, the percent values differ quite a lot in each example above
 ; This is due to the fact that when we compute something like line 46, we are not taking the abstract value a divided by a, multiplying by a and receiving the abstract value a.  Rather, we are taking a's computer-represented value (9.95 . 10.05), multiplying a's upper and lower bounds by the reciprocal of themselves, which tries to find a minimum and maximum based on the cross-computation of the upper and lower bounds of a and a.  So instead of getting the 1 interval (1 . 1), we get (9.95*(1/10.05), 10.05*(1/9.95)).
 
+; Exercise 2.15.  Eva Lu Ator, another user, has also noticed the different intervals computed by different but algebraically equivalent expressions. She says that a formula to compute with intervals using Alyssa's system will produce tighter error bounds if it can be written in such a form that no variable that represents an uncertain number is repeated. Thus, she says, par2 is a ``better'' program for parallel resistances than par1. Is she right? Why?
+
+; She's correct when we use computations that involve multiplication and division.  Addition and subtraction doesn't seem to introduce any additional error, since we don't run into problems adding and subtracting equivalent upper and lower bounds.  However with multiplication and division which is defined in terms of multiplication, we run into problems.
+
+; Why?
+
+; Because each time an equivalent interval expression is multiplied or divided by itself, it introduces more error proportional to the width of the original number.
