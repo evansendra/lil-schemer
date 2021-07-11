@@ -59,3 +59,9 @@
 ; Why?
 
 ; Because each time an equivalent interval expression is multiplied or divided by itself, it introduces more error proportional to the width of the original number.
+
+; Exercise 2.16.  Explain, in general, why equivalent algebraic expressions may lead to different answers. Can you devise an interval-arithmetic package that does not have this shortcoming, or is this task impossible? (Warning: This problem is very difficult.)
+
+; In the world of interval arithmetic, equivalent algebraic expressions may lead to different answers because anytime we multiply or divide using our system, we introduce more uncertainty even if our expressions algebraically simplify to an easy result.  For example, a/a != (1 . 1) because our division uses our multiplication which maximizes and minimizes the bounds of a x 1/a.  The problem boils down to the fact that in arithmetic, division is the inverse of multiplication, so * a / a = 1.  However, in interval arithmetic, we only consider the extrema of the problem, in order to be as generally correct as possible.  When we do something like * a / a in interval arithmetic, the procedure doesn't know that we are multiplying and dividing the SAME value and therefore can disregard the uncertainty created by the computation.
+
+; To devise an interval arithmetic system that doesn't have this shortcoming, we would have to have a way to identify SAME valued intervals throughout a computation and simplify such that the output of (r1r2 / (r1 + r2)) = (1/(1/r1)+(1/r2)).  The system to do this would need to either algebraically simplify expressions that are equivalent or track SAME valued quantities throughout a computation.  However, when something like (r1r2 / (r1 + r2)) is passed in, it's not obvious on first look how we would track such values without them getting distorted in the initial computation.  Building such a system to be general and all-encompassing would be extremely difficult as mentioned by the authors.
