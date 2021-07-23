@@ -30,3 +30,27 @@
 ; ``cons'' can be used to append an item to an existing ``list'''
 (cons 0 one-through-four)
 ; (0 1 2 3 4)
+
+; dotted-tail notation
+; For instance, given the definition
+
+(define (f x y . z) <body>)
+
+; the procedure f can be called with two or more arguments. If we evaluate
+
+(f 1 2 3 4 5 6)
+
+; then in the body of f, x will be 1, y will be 2, and z will be the list (3 4 5 6). Given the definition
+
+(define (g . w) <body>)
+
+; the procedure g can be called with zero or more arguments. If we evaluate
+
+(g 1 2 3 4 5 6)
+
+; then in the body of g, w will be the list (1 2 3 4 5 6).
+
+; To define f and g using lambda we would write
+
+(define f (lambda (x y . z) <body>))
+(define g (lambda w <body>))
