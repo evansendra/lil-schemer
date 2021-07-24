@@ -23,3 +23,24 @@
 
 ; (same-parity 2 3 4 5 6 7)
 ; (2 4 6)
+
+; take first integer as the initial argument
+; let fip be the parity of the first integer
+; let rl be a list to return of all integers with same parity as initial integer
+; take 0 or more further integers as list of the arguments
+  ; if no more integers in list, return rl
+  ; for each integer, if parity = fip, add it to rl
+(define (same-parity first . rest)
+  (define (same-parity? n m)
+    (= (remainder n 2) (remainder m 2)))
+  (define (reverse l)
+    (define (reverse oldl newl)
+      (if (null? oldl)
+        newl
+        (reverse (cdr oldl) (cons (car oldl) newl))))
+    (reverse l ()))
+  (define (get-same-parity list rl)
+    (cond ((null? list) rl)
+          ((same-parity? (car list) first) (get-same-parity (cdr list) (cons (car list) rl)))
+          (else (get-same-parity (cdr list) rl))))
+  (reverse (get-same-parity rest (list first))))
