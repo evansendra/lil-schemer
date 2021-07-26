@@ -1,8 +1,10 @@
+(define nil '())
+
 ; chain of pairs to represent sequence 1 2 3 4
 (cons 1
-      (cons 2
-            (cons 3
-                  (cons 4 nil))))
+  (cons 2
+    (cons 3
+      (cons 4 nil))))
 
 ; Such a sequence of pairs, formed by nested conses, is called a list, and Scheme provides a primitive called list to help in constructing lists.8 The above sequence could be produced by (list 1 2 3 4). In general,
 
@@ -54,3 +56,22 @@
 
 (define f (lambda (x y . z) <body>))
 (define g (lambda w <body>))
+
+; mapping over lists
+
+(define (scale-list items factor)
+  (if (null? items)
+    nil 
+    (cons (* (car items) factor)
+          (scale-list (cdr items) factor))))
+
+; more generally...
+
+(define (map proc list)
+  (if (null? list)
+      nil 
+      (cons (proc (car list))
+            (map proc (cdr list)))))
+
+; (scale-list (list 1 2 3 4 5) 10)
+; (map (lambda (x) (* x 10)) (list 1 2 3 4 5))
