@@ -75,3 +75,8 @@
 
 ; (scale-list (list 1 2 3 4 5) 10)
 ; (map (lambda (x) (* x 10)) (list 1 2 3 4 5))
+
+; scale-list in terms of map
+(define (scale-list items factor)
+  (map (lambda (x) (* x factor))
+        items))
