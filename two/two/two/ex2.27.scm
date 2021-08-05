@@ -16,6 +16,13 @@
           (else (iter (cdr l1) (cons (car l1) l2)))))
     (iter l ()))
 
+; another super cool solution
+(define (deep-rev-alt l)
+  (if (pair? l)
+    (append (deep-rev-alt (cdr l))
+            (list (deep-rev-alt (car l))))
+    l))
+
 ; x
 ; ((1 2) (3 4))
 
