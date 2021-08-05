@@ -10,14 +10,10 @@
 ;   (iter l ()))
 
 (define (deep-reverse l)
-  ; if l1 is empty, return l2
-  ; place the car of l1 in l2
-  ; if car l1 is not a list, reverse with parameters cdr of l1, (cons (car l1) l2)
-  ; if car l1 is a list, reverse with parameters (cdr l1), (cons (iter (car l1) ()) l2)
   (define (iter l1 l2)
     (cond ((null? l1) l2)
-          ((not (pair? (car l1))) (iter (cdr l1) (cons (car l1) l2)))
-          (else (iter (cdr l1) (cons (iter (car l1) ()) l2)))))
+          ((pair? (car l1)) (iter (cdr l1) (cons (deep-reverse (car l1)) l2))) 
+          (else (iter (cdr l1) (cons (car l1) l2)))))
     (iter l ()))
 
 ; x
