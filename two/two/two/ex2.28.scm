@@ -10,8 +10,8 @@
 
 (define (fringe x)
   (cond ((null? x) ())
-        ((pair? (car x)) (append (fringe (car x)) (fringe (cdr x))))
-        (else (cons (car x) (fringe (cdr x))))))
+        ((pair? x) (append (fringe (car x)) (fringe (cdr x))))
+        (else (list x))))
 
 (load "../../../utils/testing.scm")
 (define (list= l1 l2)
@@ -19,6 +19,7 @@
         ((= (car l1) (car l2)) (list= (cdr l1) (cdr l2)))
         (else false)))
 
+(testc (fringe (list 1 2 3 4)) (list 1 2 3 4) list=)
 (testc (fringe x) (list 1 2 3 4) list=)
 (testc (fringe (list x x)) (list 1 2 3 4 1 2 3 4) list=)
 (testc (fringe (list x (list (list (list x))))) (list 1 2 3 4 1 2 3 4) list=)
