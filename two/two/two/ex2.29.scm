@@ -23,6 +23,21 @@
   (car (cdr branch)))
 
 ; b.  Using your selectors, define a procedure total-weight that returns the total weight of a mobile.
+; look at the current mobile
+; look at the left branch
+  ; if left branch has a branch-structure which is a number, add to the total weight
+  ; else recurse through the left branch as its own mobile
+; look at the right branch
+  ; if the right branch has a branch-structure which is a number, add to the total weight
+  ; else recurse through the right branch as its own mobile
+; return the total weight 
+(define (total-weight mobile)
+  (define (total-weight-branch branch)
+    (let ((structure (branch-structure branch)))
+    (if (list? structure) (total-weight structure) structure)))
+  (let ((left-branch-structure (branch-structure (left-branch mobile)))
+          (right-branch-structure (branch-structure (right-branch mobile))))
+  (+ (total-weight-branch left-branch-structure) (total-weight-branch right-branch-structure))))
 
 ; c.  A mobile is said to be balanced if the torque applied by its top-left branch is equal to that applied by its top-right branch (that is, if the length of the left rod multiplied by the weight hanging from that rod is equal to the corresponding product for the right side) and if each of the submobiles hanging off its branches is balanced. Design a predicate that tests whether a binary mobile is balanced.
 
