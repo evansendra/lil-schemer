@@ -35,9 +35,19 @@
   (define (total-weight-branch branch)
     (let ((structure (branch-structure branch)))
     (if (list? structure) (total-weight structure) structure)))
-  (let ((left-branch-structure (branch-structure (left-branch mobile)))
-          (right-branch-structure (branch-structure (right-branch mobile))))
-  (+ (total-weight-branch left-branch-structure) (total-weight-branch right-branch-structure))))
+  (let ((left-branch (left-branch mobile))
+          (right-branch (right-branch mobile)))
+  (+ (total-weight-branch left-branch) (total-weight-branch right-branch))))
+
+; testing...
+(define branch2 (make-branch 2 2))
+(define branch-branch (make-branch 3 (make-mobile branch2 branch2)))
+(define mobile-simple (make-mobile branch2 branch2))
+(define mobile-complex (make-mobile branch2 branch-branch))
+; (total-weight mobile-simple)
+;Value: 4
+; (total-weight mobile-complex)
+;Value: 6
 
 ; c.  A mobile is said to be balanced if the torque applied by its top-left branch is equal to that applied by its top-right branch (that is, if the length of the left rod multiplied by the weight hanging from that rod is equal to the corresponding product for the right side) and if each of the submobiles hanging off its branches is balanced. Design a predicate that tests whether a binary mobile is balanced.
 
