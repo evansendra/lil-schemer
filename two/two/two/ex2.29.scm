@@ -22,6 +22,9 @@
 (define (branch-structure branch)
   (car (cdr branch)))
 
+(define (is-mobile? structure)
+  (list? structure))
+
 ; b.  Using your selectors, define a procedure total-weight that returns the total weight of a mobile.
 ; look at the current mobile
 ; look at the left branch
@@ -31,10 +34,13 @@
   ; if the right branch has a branch-structure which is a number, add to the total weight
   ; else recurse through the right branch as its own mobile
 ; return the total weight 
+
+
 (define (total-weight mobile)
   (define (total-weight-branch branch)
     (let ((structure (branch-structure branch)))
-    (if (list? structure) (total-weight structure) structure)))
+    (if (is-mobile? structure) (total-weight structure) structure)))
+
   (let ((left-branch (left-branch mobile))
           (right-branch (right-branch mobile)))
   (+ (total-weight-branch left-branch) (total-weight-branch right-branch))))
@@ -51,9 +57,14 @@
 
 ; c.  A mobile is said to be balanced if the torque applied by its top-left branch is equal to that applied by its top-right branch (that is, if the length of the left rod multiplied by the weight hanging from that rod is equal to the corresponding product for the right side) and if each of the submobiles hanging off its branches is balanced. Design a predicate that tests whether a binary mobile is balanced.
 (define (balanced? mobile)
-  (define (torque mobile left?)
-    (let ((branch (if (left?) (left-branch mobile) (right-branch mobile))))
-      (* (branch-length branch) (total-weight mobile)))))
+  (define (torque branch weight)
+    (* (branch-length branch) weight))
+  (let ((lb (left-branch mobile))
+        (rb (right-branch mobile)))
+    ; need to also check if branches are also balanced in case the branches have mobiles hanging off of them...
+    (= (torque lb (if (is-mobile? (branch-structure lb)) (total-weight (branch-structure lb)) (branch-structure lb)))
+       (torque rb (if (is-mobile? (branch-structure rb)) (total-weight (branch-structure rb)) (branch-structure rb))))))
+  
       ; check if the current structure is balanced: is the length of the left branch multiplied by total weight of the left branch = right?
       ; if no, return false
       ; if yes, return the predacite defined by if the left and right sub structures are balanced
