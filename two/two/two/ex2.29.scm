@@ -61,13 +61,17 @@
     (* (branch-length branch) weight))
   (let ((lb (left-branch mobile))
         (rb (right-branch mobile)))
-    ; need to also check if branches are also balanced in case the branches have mobiles hanging off of them...
-    (= (torque lb (if (is-mobile? (branch-structure lb)) (total-weight (branch-structure lb)) (branch-structure lb)))
-       (torque rb (if (is-mobile? (branch-structure rb)) (total-weight (branch-structure rb)) (branch-structure rb))))))
-  
-      ; check if the current structure is balanced: is the length of the left branch multiplied by total weight of the left branch = right?
-      ; if no, return false
-      ; if yes, return the predacite defined by if the left and right sub structures are balanced
+  (and (if (is-mobile? (branch-structure lb)) (balanced? (branch-structure lb)))
+       (if (is-mobile? (branch-structure rb)) (balanced? (branch-structure rb)))
+       (= (torque lb (if (is-mobile? (branch-structure lb)) (total-weight (branch-structure lb)) (branch-structure lb)))
+          (torque rb (if (is-mobile? (branch-structure rb)) (total-weight (branch-structure rb)) (branch-structure rb)))))))
+
+; (balanced? mobile-simple)
+; Value: true
+; (balanced? mobile-complex)
+; Value: false
+; (balanced? (make-mobile mobile-simple mobile-simple))
+; Value: true
 
 ; d.  Suppose we change the representation of mobiles so that the constructors are
 
