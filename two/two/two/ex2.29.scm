@@ -37,13 +37,17 @@
 
 
 (define (total-weight mobile)
-  (define (total-weight-branch branch)
-    (let ((structure (branch-structure branch)))
-    (if (is-mobile? structure) (total-weight structure) structure)))
-
-  (let ((left-branch (left-branch mobile))
-          (right-branch (right-branch mobile)))
-  (+ (total-weight-branch left-branch) (total-weight-branch right-branch))))
+  ; (define (total-weight-branch branch)
+  ;   (display (branch-structure branch))
+  ;   (let ((structure (branch-structure branch)))
+  ;   (if (is-mobile? structure) (total-weight structure) structure)))
+      (define (branch-weight branch-structure)
+        (if (is-mobile? branch-structure) 
+          (total-weight branch-structure)
+          branch-structure)) 
+      (+ 
+        (branch-weight (branch-structure (left-branch mobile)))
+        (branch-weight (branch-structure (right-branch mobile)))))
 
 ; testing...
 (define branch2 (make-branch 2 2))
@@ -70,8 +74,10 @@
 ; Value: true
 ; (balanced? mobile-complex)
 ; Value: false
-; (balanced? (make-mobile mobile-simple mobile-simple))
+; (balanced? (make-mobile (make-branch 3 mobile-simple) (make-branch 3 mobile-simple)))
 ; Value: true
+
+; https://witeboard.com/aa8dff90-06b6-11ec-aa26-999ccd347143
 
 ; d.  Suppose we change the representation of mobiles so that the constructors are
 
