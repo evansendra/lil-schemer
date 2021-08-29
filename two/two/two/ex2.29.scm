@@ -87,3 +87,7 @@
 ;   (cons length structure))
 
 ; How much do you need to change your programs to convert to the new representation?
+
+; We just need to redefine the selectors of mobiles and branches such that they return the appropriate components of the pair
+; We can do this keeping (car ...) as is in selectors and replacing (car (cdr ...)) with (cdr ...)
+; Finally in (is-mobile? ...) we can replace (list? ...) with (pair? ...)
