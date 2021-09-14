@@ -28,6 +28,5 @@
     tree))
 
 (load "../../../utils/testing.scm")
-(define (list-deep= l1 l2))
 (testc (square-tree l) (list 1 (list 4 (list 9 16) 25) (list 36 49)) list=)
 (testc (square-tree-map l) (list 1 (list 4 (list 9 16) 25) (list 36 49)) list=)

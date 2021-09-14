@@ -1,3 +1,5 @@
+; (load "./comparators.scm") ; WEIRD...seems to return current working directory of calling file, not this file...
+
 ; allows to compare an actual result to an expected result of a computation optionally passing
 ; in a custom comparator (= is default) 
 (define (testc actual expected comparator)
