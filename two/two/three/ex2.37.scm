@@ -1,4 +1,5 @@
 (load "accumulate.scm")
+(load "ex2.36.scm") ; (accumulate-n)
 (define nil '())
 
 (define v1 (list 1 2))
@@ -19,3 +20,12 @@
 ;           3*1 + 4*2   11
 ; aka
 ; (matrix-*-vector m1 v1) -> (5 11)
+
+; (transpose m1) -> 1 3 -> ((1 3) (2 4))
+;                   2 4
+(define (transpose mat)
+  (accumulate-n cons nil mat))
+
+(define (matrix-*-matrix m n)
+  (let ((cols (transpose n)))
+    (map (lambda (row) (map (lambda (col) (dot-product row col)) cols)) m)))
