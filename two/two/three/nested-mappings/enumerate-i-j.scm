@@ -15,3 +15,8 @@
   append nil (map (lambda (i)
                (map (lambda (j) (list i j)) (enumerate-interval 1 (- i 1))))
                   (enumerate-interval 1 n)))
+
+
+; alternatively using flatmap...
+; (load "flatmap.scm")
+; (flatmap (lambda (i) (map (lambda (j) (list i j)) (enumerate-interval 1 (- i 1)))) (enumerate-interval 1 n))
