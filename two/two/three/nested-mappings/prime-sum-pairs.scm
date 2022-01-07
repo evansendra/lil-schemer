@@ -28,5 +28,7 @@
 (define (prime-pair? pair)
   (prime? (+ (car pair) (cadr pair))))
 
-(define (prime-sum-pairs? n)
+; (load "ex2.40.scm") ; equivalent to `list-pairs` above
+; can use `unique-pairs` as defined above to get same result as part of exercise 2.40
+(define (prime-sum-pairs n)
   (map (lambda (p) (list (car p) (cadr p) (+ (car p) (cadr p)))) (filter prime-pair? (list-pairs n))))
