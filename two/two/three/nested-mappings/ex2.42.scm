@@ -10,26 +10,43 @@
 
 (define empty-board nil)
 
+; adjoins a position in row and column specified by row and col
+; to the existing set of positions determined by positions
+; row: integer
+; col: integer
+; positions: list of lists which contain two integers specifying the row
+; & col occupied by each position respectively
 (define (adjoin-position row col positions)
-  (cons (list row col) positions))
+  (append positions (list (list row col))))
 
-; tells whether or not the ``position" is safe given the existing ``positions"
-; where position is (list row col) and positions is a list of the same format of list as position
-; what makes a position safe is not being one of the following
-; ...same row as any of positions
-; ...same col as any of positions
-; ...same diagonal as any of positions, meaning row1 - row2 = col1 - col2
-(define (safe-pos? position positions)
-  (display position)
-  (display positions)
-  (if (null? positions)
-      true
-      (and (let ((cur-pos (car positions)))
-              (and 
-                (not (= (car cur-pos) (car position)))
-                (not (= (cadr cur-pos) (cadr position))
-                (not (= (- (car cur-pos) (car position)) (- (cadr cur-pos) (cadr position))))))) 
-          (safe? position (cdr positions)))))
+; determines for a set of positions, whether the queen in the k-th column
+; is safe with respsect to the others
+; how we'll tackle this:
+; make one pass through positions determining which position is the k-th column position
+; make another pass through the list, determining if this position is safe, defined by
+; the position not being in the same row
+; the position not being in the same col
+; the position not being in the same diagonal (delta of row is the same as delta of col)
+(define (safe? column positions)
+  ; get the k-th item in a list
+  ; k the number of item in the list to get
+  ; count the count of the iterations through the list, which is always 0 to start
+  ; items the list of items
+  (define (get-kth-item k count items)
+    (if (= (- k 1) count)
+        (car items)
+        (get-kth-item k (+ count 1) (cdr items))))
+  (define (safe-pos? position positions)
+    (if (null? positions)
+        true
+        (and (let ((cur-pos (car positions)))
+                (or (and (= (car cur-pos) (car position)) (= (cadr cur-pos) (cadr position))) ; the position is the same as one in positions
+                    (and  ; the position is not...
+                      (not (= (car cur-pos) (car position))) ; ...same row
+                      (not (= (cadr cur-pos) (cadr position))) ; ... same col
+                      (not (= (abs (- (car cur-pos) (car position))) (abs (- (cadr cur-pos) (cadr position)))))))) ; ... same diagonal
+            (safe-pos? position (cdr positions)))))
+  (safe-pos? (get-kth-item column 0 positions) positions))
 
 ; We implement this solution as a procedure queens, which returns a sequence of all solutions to the problem of plac- ing n queens on an n × n chessboard. queens has an inter- nal procedure queen-cols that returns the sequence of all ways to place queens in the first k columns of the board.
 
@@ -50,14 +67,38 @@
 
 ; In this procedure rest-of-queens is a way to place k − 1 queens in the first k − 1 columns, and new-row is a proposed row in which to place the queen for the kth column. Com- plete the program by implementing the representation for sets of board positions, including the procedure adjoin- position, which adjoins a new row-column position to a set of positions, and empty-board, which represents an empty set of positions. You must also write the procedure safe?, which determines for a set of positions, whether the queen in the kth column is safe with respect to the others. (Note that we need only check whether the new queen is safe— the other queens are already guaranteed safe with respect to each other.)
 
-
-
 ; dummy code for displaying a board, but need to write a contains to do it...maybe not worth it...
-; (define (display-board positions board-size)
-;   (map (lambda (i) 
-;     (map (lambda (j) 
-;       (if (contains positions (list i j))
-;           (display "Q")
-;           (display "-")))
-;       (enumerate 1 board-size)
-;     (enumerate 1 board-size)))))
+(define (list= x y)
+  (if (and (null? x) (null? y))
+      true
+      (and (= (length x) (length y))
+          (and (= (car x) (car y)) (list= (cdr x) (cdr y))))))
+
+(define (contains-list item sequence)
+  (cond ((null? sequence) false)
+        ((list= item (car sequence)) true)
+        (else (contains-list item (cdr sequence)))))
+
+(define (display-board positions board-size)
+  (map (lambda (i) 
+    (map (lambda (j) 
+      (if (contains-list (list i j) positions)
+          (display "Q")
+          (display "-")))
+      (enumerate-interval 1 board-size))
+    (newline))
+    (enumerate-interval 1 board-size))
+  (newline))
+
+; example putting it all together with displaying full set of solutions to the Queen's puzzle...
+; (map (lambda (solution) (display-board solution (length solution))) (queens 4))
+
+; --Q-
+; Q---
+; ---Q
+; -Q--
+
+; ; -Q--
+; ; ---Q
+; ; Q---
+; ; --Q-
