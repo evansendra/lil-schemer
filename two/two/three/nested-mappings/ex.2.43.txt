@@ -1,0 +1,42 @@
+Exercise 2.43: Louis Reasoner is having a terrible time do- ing Exercise 2.42. His queens procedure seems to work, but it runs extremely slowly. (Louis never does manage to wait long enough for it to solve even the 6 × 6 case.) When Louis asks Eva Lu Ator for help, she points out that he has inter- changed the order of the nested mappings in the flatmap, writing it as
+
+(flatmap
+  (lambda (new-row)
+    (map (lambda (rest-of-queens)
+      (adjoin-position new-row k rest-of-queens))
+              (queen-cols (- k 1))))
+        (enumerate-interval 1 board-size))
+
+Explain why this interchange makes the program run slowly. Estimate how long it will take Louis’s program to solve the eight-queens puzzle, assuming that the program in Exercise 2.42 solves the puzzle in time T .
+
+---
+
+Given n is input size and k is k as defined in recursive iterations of
+
+(queen-cols (- k 1))
+
+original solution:
+
+T(k) = T(k-1)*n, T(0) = 1
+
+T(n) = n*T(n-1) + n*T(n-2) + ... + 1
+
+T(n) = n!n
+
+Louis's solution:
+
+τ(k) = τ(k-1)^n, τ(0)=1
+
+τ(k) = τ(k-1)^n + τ(n-2)^n + ... + 1
+
+τ(k) = n^n
+
+Comparing these solutions:
+
+τ/T, τ=n^n, T=n!n
+
+τ/T = n^n/n!n
+
+τ/T = n^(n-1)/n! ≈ n^n
+
+So, Louis's solution is n^(n-1)/n! times less efficient than the original which is exponentially worse on the order of n^n
