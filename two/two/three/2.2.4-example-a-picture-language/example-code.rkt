@@ -39,3 +39,18 @@
   (let ((quarter (corner-split painter n)))
     (let ((half (beside (flip-horiz quarter) quarter)))
       (below (flip-vert half) half))))
+
+; higher order procedures
+(define (square-of-four tl tr bl br)
+  (lambda (painter)
+    (let ((top (beside (tl painter) (tr painter)))
+          (bottom (beside (bl painter) (br painter))))
+      (below bottom top))))
+
+(define (identity x) x)
+
+(define (flipped-pairs-2 painter)
+  ((square-of-four
+    identity flip-vert
+    identity flip-vert) painter))
+     
