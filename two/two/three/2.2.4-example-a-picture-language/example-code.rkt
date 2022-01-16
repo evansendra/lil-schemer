@@ -53,4 +53,8 @@
   ((square-of-four
     identity flip-vert
     identity flip-vert) painter))
-     
+
+(define (square-limit-2 painter n)
+  (let ((combine4 (square-of-four flip-horiz identity
+                                  rotate180 flip-vert)))
+    (combine4 (corner-split painter n))))
