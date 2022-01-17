@@ -1,8 +1,7 @@
-#lang racket
+;#lang racket
 (require sicp-pict)
 (require "ex2.44.rkt")
 ; src: https://docs.racket-lang.org/sicp-manual/SICP_Picture_Language.html
-
 
 (define e einstein)
 (define b (bitmap->painter "buddha.jpg"))
@@ -23,6 +22,12 @@
       painter
       (let ((smaller (right-split painter (- n 1))))
         (beside painter (below smaller smaller)))))
+
+(define (up-split painter n)
+  (if (= n 0)
+      painter
+      (let ((smaller (up-split painter (- n 1))))
+            (below painter (beside smaller smaller)))))
 
 (define (corner-split painter n)
   (if (= n 0)
@@ -58,3 +63,5 @@
   (let ((combine4 (square-of-four flip-horiz identity
                                   rotate180 flip-vert)))
     (combine4 (corner-split painter n))))
+
+(provide (all-defined-out))
