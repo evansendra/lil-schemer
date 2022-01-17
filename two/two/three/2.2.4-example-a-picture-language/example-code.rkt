@@ -1,6 +1,5 @@
 ;#lang racket
 (require sicp-pict)
-(require "ex2.44.rkt")
 ; src: https://docs.racket-lang.org/sicp-manual/SICP_Picture_Language.html
 
 (define e einstein)
