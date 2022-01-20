@@ -7,3 +7,16 @@
 ; (x1,y1)+(x2,y2)=(x1 +x2,y1 +y2),
 ; (x1,y1)-(x2,y2)=(x1 -x2,y1 -y2),
 ; s · (x , y) = (sx , sy).
+
+(define (make-vect x y)
+  (cons x y))
+
+(define (xcor-vect v)
+  (car v))
+
+(define (ycor-vect v)
+  (cdr v))
+
+;(define (add-vect v1 v2))
+;(define (sub-vect v1 v2))
+;(define (scale-vect v s))
