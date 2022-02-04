@@ -26,3 +26,5 @@
 
 (define (scale-vect v s)
   (make-vect (* s (xcor-vect v)) (* s (ycor-vect v))))
+
+(provide (all-defined-out))
