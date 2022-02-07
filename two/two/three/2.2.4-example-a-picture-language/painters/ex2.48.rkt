@@ -4,6 +4,6 @@
 
 (require "../frames/ex2.46.rkt")
 
-(define (make-segment p1 p2))
-(define (start-segment s))
-(define (end-segment s))
+(define (make-segment x1 y1 x2 y2) (cons (make-vect x1 y1) (make-vect x2 y2)))
+(define (start-segment s) (car s))
+(define (end-segment s) (cdr s))
