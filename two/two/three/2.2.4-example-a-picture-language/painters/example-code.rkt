@@ -1,4 +1,5 @@
 #lang racket
+(require sicp-pict)
 
 (define (segments->painter segment-list)
   (lambda (frame)
