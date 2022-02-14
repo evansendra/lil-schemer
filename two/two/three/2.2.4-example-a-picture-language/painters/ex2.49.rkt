@@ -7,7 +7,21 @@
 ;c. The painter that draws a diamond shape by connect- ing the midpoints of the sides of the frame.
 ;d. The wave painter.
 
-;(define (outline->painter frame))
-;(define (x->painter frame))
-;(define (diamond->painter frame))
-;(define (wave->painter frame))
+(define outline 
+  (segments->painter 
+   (list 
+    (segment (vect 0.0 0.0) (vect 0.0 1.0)) 
+    (segment (vect 0.0 0.0) (vect 1.0 0.0)) 
+    (segment (vect 0.0 1.0) (vect 1.0 1.0)) 
+    (segment (vect 1.0 0.0) (vect 1.0 1.0)))))
+; (paint outline)
+
+ (define x-painter 
+   (segments->painter 
+    (list 
+     (segment (vect 0.0 0.0) (vect 1.0 1.0)) 
+     (segment (vect 0.0 1.0) (vect 1.0 0.0)))))
+; (paint x-painter)
+
+;(define (diamond))
+;(define (wave))
