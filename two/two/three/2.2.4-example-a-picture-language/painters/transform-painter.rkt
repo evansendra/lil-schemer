@@ -1,7 +1,11 @@
 #lang racket
+(require sicp-pict)
+(require "../frames/ex2.46.rkt")
 
-(define (transform-painter painter origin corner1 corner2) (lambda (frame)
-(let ((m (frame-coord-map frame))) (let ((new-origin (m origin)))
+(define (transform-painter painter origin corner1 corner2)
+  (lambda (frame)
+    (let ((m (frame-coord-map frame)))
+      (let ((new-origin (m origin)))
         (painter (make-frame
                   new-origin
                   (sub-vect (m corner1) new-origin)
