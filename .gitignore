@@ -3,3 +3,5 @@ node_modules
 math-exercises.*
 !math-exercises.tex
 package-lock.json
+
+\#*
