@@ -35,7 +35,13 @@
 ; (paint diamond)
 
 (define wave 
-  (segments->painter (list 
+  (segments->painter (list
+                      ; smile
+                      (make-segment (make-vect .4 .85) (make-vect .45 .75))
+                      (make-segment (make-vect .45 .75) (make-vect .55 .75))
+                      (make-segment (make-vect .55 .75) (make-vect .6 .85))
+
+                      ; body
                       (make-segment (make-vect .25 0) (make-vect .35 .5)) 
                       (make-segment (make-vect .35 .5) (make-vect .3 .6)) 
                       (make-segment (make-vect .3 .6) (make-vect .15 .4)) 
