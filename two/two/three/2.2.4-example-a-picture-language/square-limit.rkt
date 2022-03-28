@@ -2,7 +2,7 @@
 (require sicp-pict)
 ; src: https://docs.racket-lang.org/sicp-manual/SICP_Picture_Language.html
 
-(provide square-limit)
+(provide square-limit up-split right-split)
 
 (define (right-split painter n)
   (if (= n 0)
