@@ -6,7 +6,7 @@
 ;
 ;Exercise 2.52: Make changes to the square limit of wave shown in Figure 2.9 by working at each of the levels de- scribed above. In particular:
 ;xxx a. Add some segments to the primitive wave painter of Exercise 2.49 (to add a smile, for example).
-;b. Changethepaernconstructedbycorner-split(for example, by using only one copy of the up-split and right-split images instead of two).
+;xxxb. Changethepaernconstructedbycorner-split(for example, by using only one copy of the up-split and right-split images instead of two).
 ;c. Modifytheversionofsquare-limitthatusessquare- of-four so as to assemble the corners in a different paern. (For example, you might make the big Mr. Rogers look outward from each corner of the square.)
 
 ; a is done in `wave-custom.rkt`
@@ -38,9 +38,23 @@
           (beside (below painter top-left)
                   (below bottom-right corner))))))
 
-(define (square-limit painter n)
-  (let ((quarter (corner-split painter n)))
-    (let ((half (beside (flip-horiz quarter) quarter)))
-      (below (flip-vert half) half))))
+; (define (square-limit painter n)
+;  (let ((quarter (corner-split painter n)))
+;    (let ((half (beside (flip-horiz quarter) quarter)))
+;      (below (flip-vert half) half))))
 
-(paint (square-limit wave 2))
+; (paint (square-limit wave 2))
+
+; c
+(define (square-of-four tl tr bl br)
+  (lambda (painter)
+    (let ((top (beside (tl painter) (tr painter)))
+          (bottom (beside (bl painter) (br painter))))
+      (below bottom top))))
+
+(define (square-limit painter n)
+  (let ((combine4 (square-of-four flip-horiz identity
+                                  flip-horiz identity)))
+    (combine4 (corner-split painter n))))
+
+; (paint (square-limit einstein 1))
