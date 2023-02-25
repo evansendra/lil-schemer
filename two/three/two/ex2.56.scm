@@ -41,3 +41,20 @@
         ((=number? a 0) 1)
         ((and (number? x) (number? a)) (expt x a))
         (else (list '** x a))))
+
+(load "../../../utils/print.scm")
+; ; tests
+; (print "ex2.56")
+; (print (deriv (make-exponentiation 'x 2) 'x))
+; ; ==> 2 * x
+; (print (deriv (make-exponentiation 'x 0) 'x))
+; ; ==> 0
+; (print (deriv (make-exponentiation 'x 1) 'x))
+; ; ==> 1
+; ; deriv
+; (print (deriv '(+ x 3) 'x))
+; ; ==> 1
+; (print (deriv '(* x y) 'x))
+; ; ==> y
+; (print (deriv '(* (* x y) (+ x 3)) 'x))
+; ; ==> (+ (* x y) (* y (+ x 3)))
