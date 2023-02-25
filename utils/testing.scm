@@ -15,4 +15,4 @@
 	res))
 
 (define (test actual expected)
-	(testc actual expected =))
+	(testc actual expected equal?))
