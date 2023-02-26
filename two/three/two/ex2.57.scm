@@ -4,16 +4,6 @@
 (print "ex2.57.scm")
 ; Try to do this by changing only the representation for sums and products, without changing the deriv procedure at all. For example, the addend of a sum would be the first term, and the augend would be the sum of the rest of the terms.
 
-; what can rest be?
-; (define (make-sum-a a1 . rest)
-;   (display a1)
-;   (display " ") 
-;   (display rest)
-;   (display (newline))
-;   (if (= (length rest) 1) 
-;     (make-sum a1 (car rest))
-;     (make-sum-a (make-sum a1 (car rest)) (cdr rest))))
-
 ; flattens the list down to two terms using flatten-fn to combine terms
 (define (flatten-l list flatten-fn)
   (cond ((< (length list) 3) (flatten-fn (car list) (cadr list)))
@@ -21,25 +11,6 @@
 
 (define (make-sum-l l) (flatten-l l make-sum))
 (define (make-product-l l) (flatten-l l make-product))
-
-; (make-sum-l '(1 2 3))
-; (make-sum 1 (make-sum-l '(2 3)))
-; (make-sum 1 (make-sum 2 3))
-; (make-sum 1 5)
-; 6
-
-; (define (make-sum a1 a2)
-;   (cond ((=number? a1 0) a2)
-;         ((=number? a2 0) a1)
-;         ((and (number? a1) (number? a2)) (+ a1 a2))
-;         (else (list '+ a1 a2))))
-
-; (define (make-product m1 m2)
-;   (cond ((or (=number? m1 0) (=number? m2 0)) 0)
-;         ((=number? m1 1) m2)
-;         ((=number? m2 1) m1)
-;         ((and (number? m1) (number? m2)) (* m1 m2))
-;         (else (list '* m1 m2))))
 
 ; The addend is the second item of the sum list:
 (define (addend s) (cadr s))
