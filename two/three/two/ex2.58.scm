@@ -51,4 +51,10 @@
 
 ; b. The problem becomes substantially harder if we allow standard algebraic notation, such as (x + 3 * (x + y + 2)), which drops unnecessary parentheses and assumes that multiplication is done before addition. Can you design appropriate predicates, selectors, and constructors for this notation such that our derivative program still works?
 
-; going to punt this question for now
+(test (deriv '(x + 3 * (x + y + 2)) 'x) 4)
+; how can we modify the predicates, selectors, and constructors such that this notation can be input and the deriv procedure will work?
+; selectors will need to be adjusted such that the exponent, augend, and multiplicand is everything to the right of the operator
+; constructors and predicates would both need heavy modification for the deriv procedure to work
+; constructors now need to return a list of arbitrary number of terms, not just two
+; predicates need to be able to analyze an expression of an arbitrary number of terms, select which is the currently existing highest order operator (**, *, or +), and modify the expression such that that operation with its left and right-hand components is placed in the front of the list before all other operations
+; while this is likely theoretically possible, it is probably beyond the scope of what the authors had in mind for this exercise as it requires auxiliary procedures that process the list in addition to those which are the predicates, selectors, and constructors 
